@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { fireEvent, screen, waitFor } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import DashboardFormUI from "../views/DashboardFormUI.js";
@@ -180,7 +176,10 @@ describe("Given I am connected as an Admin", () => {
       userEvent.click(iconEdit);
       userEvent.click(iconEdit);
       const bigBilledIcon = screen.queryByTestId("big-billed-icon");
-      expect(bigBilledIcon).toBeTruthy();
+      /*
+      Modification -> rajout négation = l'élément big-billed-icon ne doit plus apparaitre quand une note est ouverte
+      */
+      expect(bigBilledIcon).not.toBeTruthy();
     });
   });
 
