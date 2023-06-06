@@ -1,8 +1,9 @@
-import VerticalLayout from './VerticalLayout.js'
+import VerticalLayout from "./VerticalLayout.js";
 
 export default () => {
-
-  return (`
+  //ajout span class error-message + data-testid = errorMessage
+  //ajout accept dans input file pour forcer uniquement fichiers jpeg/jpg/png
+  return `
     <div class='layout'>
       ${VerticalLayout(120)}
       <div class='content'>
@@ -55,7 +56,8 @@ export default () => {
                   </div>
                   <div class="col-half">
                     <label for="file" class="bold-label">Justificatif</label>
-                    <input required type="file" class="form-control blue-border" data-testid="file" />
+                    <input required type="file" class="form-control blue-border" data-testid="file" accept="image/png, image/jpg, image/jpeg" />
+                    <div class="error-message" data-testid="errorMessage">Seuls les formats suivant sont acceptés : jpeg / jpg / png </div>
                   </div>
                 </div>
             </div>
@@ -70,5 +72,5 @@ export default () => {
         </div>
       </div>
     </div>
-  `)
-}
+  `;
+};
