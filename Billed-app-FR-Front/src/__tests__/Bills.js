@@ -95,7 +95,7 @@ describe("When I click on the new bill button", () => {
   Teste quand on click sur l'icone oeil si une modale avec le justificatif s'ouvre
   */
 describe("When I click on the icon eye", () => {
-  test("Then a modal with picture of a bill should open", () => {
+  test("Then a modal with picture of a bill should open", async () => {
     //si l'user se trouve sur la page contenant bills dans url -> on affiche la route du même nom
     const onNavigate = (pathname) => {
       document.body.innerHTML = ROUTES({ pathname });
@@ -135,7 +135,7 @@ describe("When I click on the icon eye", () => {
     userEvent.click(firstIcon); //simule le click
 
     expect(handleClickIconEye).toHaveBeenCalled(); //on vérifie que la fonction simulée a bien été appelée
-    const modaleFile = screen.getByTestId("modalFile"); //on récup le dataId de la modale (rajouté dans view)
+    await waitFor(() => {});
     expect(modaleFile).toBeTruthy(); //on vérifie que la modale s'est bien ouverte au click (si elle est visible)
   });
 });

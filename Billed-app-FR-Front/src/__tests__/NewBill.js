@@ -178,15 +178,15 @@ describe("Given I am connected as an employee", () => {
       });
 
       const simulBill = {
-        type: "Restaurants et bars",
-        name: "Marion",
-        amount: 300,
-        date: "2008-08-08",
-        vat: "60",
-        pct: 20,
-        commentary: "Repas équipe",
-        fileUrl: "../src/img/restau.jpg",
-        fileName: "restau.jpg",
+        type: "Transports",
+        name: "Train déplacement ",
+        amount: 261,
+        date: "2023-04-04",
+        vat: "70",
+        pct: 5,
+        commentary: "Déplacement Paris",
+        fileUrl: "../src/img/resumédesbalisesstructurantes.png",
+        fileName: "resumé des balises structurantes.png",
       };
 
       const submitButton = screen.getByTestId("form-new-bill");

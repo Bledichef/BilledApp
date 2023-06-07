@@ -45,7 +45,6 @@ export default class {
             try {
               return {
                 ...doc,
-
                 status: formatStatus(doc.status),
               };
             } catch (e) {
