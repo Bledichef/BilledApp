@@ -5,6 +5,9 @@ import { ROUTES_PATH } from "../constants/routes.js";
 import USERS_TEST from "../constants/usersTest.js";
 import Logout from "./Logout.js";
 
+let cardCounter = 1;
+let counter = 0;
+
 export const filteredBills = (data, status) => {
   return data && data.length
     ? data.filter((bill) => {
@@ -95,28 +98,33 @@ export default class {
   };
 
   handleEditTicket(e, bill, bills) {
-    console.log("this.counter % 2 : ", this.counter % 2);
-    console.log("this.counter", this.counter);
-    if (this.counter === undefined || this.id !== bill.id) this.counter = 0;
-    if (this.id === undefined || this.id !== bill.id) this.id = bill.id;
-
-    //if (this.counter % 2 === 0) {
+    console.log("this.cardCounter % 2 : ", this.cardCounter % 2);
+    console.log("this.cardCounter", this.cardCounter);
+    if (this.cardCounter > 2) this.cardCounter = 0;
+    if (this.id === undefined || this.id !== bill.id) {
+      this.id = bill.id;
+      this.cardCounter = 1;
+      console.log(bill.id);
+      console.log(this.id);
+    }
     bills.forEach((b) => {
       $(`#open-bill${b.id}`).css({ background: "#0D5AE5" });
     });
-    $(`#open-bill${bill.id}`).css({ background: "#2A2B35" });
-    $(".dashboard-right-container div").html(DashboardFormUI(bill));
-    $(".vertical-navbar").css({ height: "150vh" });
-    this.counter++;
-    // } else {
-    //   $(`#open-bill${bill.id}`).css({ background: "#0D5AE5" });
+    if (this.cardCounter % 2 === 0) {
+      $(`#open-bill${bill.id}`).css({ background: "#0D5AE5" });
 
-    //   $(".dashboard-right-container div").html(`
-    //     <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
-    //   `);
-    //   $(".vertical-navbar").css({ height: "120vh" });
-    //   this.counter++;
-    // }
+      $(".dashboard-right-container div").html(`
+        <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
+      `);
+      $(".vertical-navbar").css({ height: "120vh" });
+      this.cardCounter++;
+    } else {
+      $(`#open-bill${bill.id}`).css({ background: "#2A2B35" });
+      $(".dashboard-right-container div").html(DashboardFormUI(bill));
+      $(".vertical-navbar").css({ height: "150vh" });
+      this.cardCounter++;
+    }
+
     $("#icon-eye-d").click(this.handleClickIconEye);
     $("#btn-accept-bill").click((e) => this.handleAcceptSubmit(e, bill));
     $("#btn-refuse-bill").click((e) => this.handleRefuseSubmit(e, bill));
