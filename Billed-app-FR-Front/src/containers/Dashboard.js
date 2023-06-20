@@ -184,11 +184,15 @@ export default class {
       this.counter++;
     }
 
-    bills.forEach((bill) => {
-      $(`#open-bill${bill.id}`).click((e) =>
-        this.handleEditTicket(e, bill, bills)
-      );
-    }, this);
+// Avant d'ajouter les nouveaux écouteurs, supprimez les anciens écouteurs d'événements
+$("[id^='open-bill']").off("click");
+
+bills.forEach((bill) => {
+  $(`#open-bill${bill.id}`).click((e) =>
+    this.handleEditTicket(e, bill, bills)
+  );
+}, this);
+
 
     return bills;
   }
