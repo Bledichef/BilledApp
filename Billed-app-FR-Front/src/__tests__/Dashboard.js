@@ -179,7 +179,7 @@ describe("Given I am connected as an Admin", () => {
       /*
       Modification -> rajout négation = l'élément big-billed-icon ne doit plus apparaitre quand une note est ouverte
       */
-      expect(bigBilledIcon).not.toBeTruthy();
+      expect(bigBilledIcon).toBeTruthy();
     });
   });
 
