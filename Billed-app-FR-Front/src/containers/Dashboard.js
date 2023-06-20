@@ -7,6 +7,7 @@ import Logout from "./Logout.js";
 
 let cardCounter = 1;
 let counter = 0;
+let id = undefined;
 
 export const filteredBills = (data, status) => {
   return data && data.length
@@ -40,10 +41,14 @@ export const card = (bill) => {
     : firstAndLastNames;
 
   return `
-    <div class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${
+    <div
+    onclick="handleShowTickets()"
+    class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${
     bill.id
   }'>
-      <div class='bill-card-name-container'>
+      <div 
+     
+      class='bill-card-name-container'>
         <div class='bill-card-name'> ${firstName} ${lastName} </div>
         <span class='bill-card-grey'> ... </span>
       </div>
@@ -79,6 +84,10 @@ export default class {
     this.document = document;
     this.onNavigate = onNavigate;
     this.store = store;
+    this.bills = bills; // Ajout de la propriété bills à la classe
+    this.counter = 0; // Définition de la propriété counter
+    this.index = undefined; // Définition de la propriété index
+
     $("#arrow-icon1").click((e) => this.handleShowTickets(e, bills, 1));
     $("#arrow-icon2").click((e) => this.handleShowTickets(e, bills, 2));
     $("#arrow-icon3").click((e) => this.handleShowTickets(e, bills, 3));
@@ -98,31 +107,41 @@ export default class {
   };
 
   handleEditTicket(e, bill, bills) {
-    console.log("this.cardCounter % 2 : ", this.cardCounter % 2);
-    console.log("this.cardCounter", this.cardCounter);
-    if (this.cardCounter > 2) this.cardCounter = 0;
-    if (this.id === undefined || this.id !== bill.id) {
-      this.id = bill.id;
-      this.cardCounter = 1;
+    // console.log("this.cardCounter % 2 : ", cardCounter % 2);
+    console.log("this.cardCounter", cardCounter);
+
+    // if ((cardCounter = 2)) {
+    //   cardCounter = 0;
+    //   id === undefined;
+    // }
+    if (id === undefined || id !== bill.id) {
+      id = bill.id;
+      cardCounter = 1;
+      console.log("coucou");
       console.log(bill.id);
-      console.log(this.id);
+    } else {
+      console.log("coucou2");
+      cardCounter = 0;
+      id = undefined;
     }
+    console.log("this.cardCounter 2", cardCounter);
+    console.log(id);
     bills.forEach((b) => {
       $(`#open-bill${b.id}`).css({ background: "#0D5AE5" });
     });
-    if (this.cardCounter % 2 === 0) {
+    if (cardCounter % 2 === 0) {
       $(`#open-bill${bill.id}`).css({ background: "#0D5AE5" });
 
       $(".dashboard-right-container div").html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `);
       $(".vertical-navbar").css({ height: "120vh" });
-      this.cardCounter++;
+      //  cardCounter++;
     } else {
       $(`#open-bill${bill.id}`).css({ background: "#2A2B35" });
       $(".dashboard-right-container div").html(DashboardFormUI(bill));
       $(".vertical-navbar").css({ height: "150vh" });
-      this.cardCounter++;
+      // cardCounter++;
     }
 
     $("#icon-eye-d").click(this.handleClickIconEye);
@@ -169,7 +188,7 @@ export default class {
       $(`#open-bill${bill.id}`).click((e) =>
         this.handleEditTicket(e, bill, bills)
       );
-    });
+    }, this);
 
     return bills;
   }
