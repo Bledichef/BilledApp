@@ -42,7 +42,7 @@ export const card = (bill) => {
 
   return `
     <div
-    onclick="handleShowTickets()"
+
     class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${
     bill.id
   }'>
